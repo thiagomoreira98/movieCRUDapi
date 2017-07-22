@@ -1,0 +1,25 @@
+{
+  "name": "moviecrudapi",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thiagomoreira98/movieCRUDapi.git"
+  },
+  "keywords": [
+    "api",
+    "crud",
+    "express",
+    "mongo"
+  ],
+  "author": "Thiago Moreira & Tiago Domingos",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thiagomoreira98/movieCRUDapi/issues"
+  },
+  "homepage": "https://github.com/thiagomoreira98/movieCRUDapi#readme"
+}
