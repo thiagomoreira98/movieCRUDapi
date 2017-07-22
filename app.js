@@ -20,7 +20,7 @@ app.listen(port, function(){
     console.log( 'SERVER ON PORT ' + port );
 });
 
-app.get('/ping', function(req, res){
+app.get('/movies/ping', function(req, res){
     res.json({
         "pong": "OK"
     })
