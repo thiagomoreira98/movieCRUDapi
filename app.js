@@ -34,7 +34,17 @@ app.post('/movies', function(req, res){
             return res.send(err);
         }
 
-        res.send({message: "Movie Added"});
+        res.send({
+            meta:{
+                server:'localhost',
+                limit:1,
+                offset:0,
+                recordCount:1
+            },
+            records:[movie],
+            message: "Movie Added"
+        });
+
     });
 });
 
