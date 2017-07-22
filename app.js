@@ -71,3 +71,23 @@ app.put('/movies/:id',function(req,res){
         });
     });
 });
+
+app.delete('/movies/:id', function(req, res){
+    Movie.remove({_id: req.params.id}, function(err, movie){
+        if(err){
+            return res.send(err);
+        }
+
+        res.json({message: "Successfully deleted"});
+    });
+});
+
+app.get('/movies/:id', function(req, res){
+    Movie.findOne({_id: req.params.id}, function(err, movie){
+        if(err){
+            return res.send(err);
+        }
+
+        res.json(movie);
+    });
+});
