@@ -48,13 +48,47 @@ app.post('/movies', function(req, res){
 });
 
 app.get('/movies', function(req, res){
-    Movie.find(function(err, movies){
+
+    var records = 0;
+    var limit = null;
+    var pages = 0;
+    var condicao = {};
+    var query = {};
+
+    if(req.query['title'] != null){
+        var regex = new RegExp(req.query['title']);
+        query['title'] = regex;
+    }
+
+    if((req.query['limit'] == null) || (req.query['limit'] <= 0)){
+        limit = 50;
+    }
+    else{
+        limit = parseInt(req.query['limit']);
+    }
+    
+    Movie.count().where(query).exec(function(err, count){
+        records = count;
+        console.log("records: "+count);
+    });
+
+    Movie.find().limit(limit).where(query).exec(function(err, movies){
         if(err){
             console.log("err: " +err);
             return res.send(err); 
         }
 
-        res.json(movies);
+        pages = records / limit;
+
+        res.json({
+            meta: {
+                limit: limit,
+                pages: pages,
+                countRecords: movies.length,
+                total: records
+            },
+            records: movies
+        });
     });
 });
 
