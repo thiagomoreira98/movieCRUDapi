@@ -33,15 +33,7 @@ app.post('/movies', function(req, res){
             console.log("err: " +err);
             return res.send(err);
         }
-
         res.send({
-            meta:{
-                server:'localhost',
-                limit:1,
-                offset:0,
-                recordCount:1
-            },
-            records:[movie],
             message: "Movie Added"
         });
 
@@ -56,5 +48,26 @@ app.get('/movies', function(req, res){
         }
 
         res.json(movies);
+    });
+});
+
+app.put('/movies/:id',function(req,res){
+    Movie.findOne({_id: req.params.id}, function(err, movie){
+        if(err){
+            return res.send(err);
+        }
+
+        for (atributo in req.body){
+            console.log(atributo);
+            movie[atributo] = req.body[atributo];
+        }
+
+        movie.save(function(err){
+            if (err){
+                return res.send(err);
+            }
+
+            res.json({message: 'Movie updated!'});
+        });
     });
 });
