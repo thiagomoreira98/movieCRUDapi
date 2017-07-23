@@ -49,7 +49,7 @@ app.post('/movies', function(req, res){
 
 app.get('/movies', function(req, res){
 
-    var records = 0;
+    var total = 0;
     var limit = null;
     var pages = 0;
     var condicao = {};
@@ -68,8 +68,8 @@ app.get('/movies', function(req, res){
     }
     
     Movie.count().where(query).exec(function(err, count){
-        records = count;
-        console.log("records: "+count);
+        total = count;
+        console.log("total: "+count);
     });
 
     Movie.find().limit(limit).where(query).exec(function(err, movies){
@@ -78,14 +78,14 @@ app.get('/movies', function(req, res){
             return res.send(err); 
         }
 
-        pages = records / limit;
+        pages = parseInt(total / limit);
 
         res.json({
             meta: {
                 limit: limit,
                 pages: pages,
                 countRecords: movies.length,
-                total: records
+                total: total
             },
             records: movies
         });
